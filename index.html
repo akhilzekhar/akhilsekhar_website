@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Akhil Sekhar — Video Engineer & AV Integrator</title>
+<meta name="description" content="Video engineer and AV integrator building mission-critical live events and niche tools.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Bebas+Neue&family=Barlow:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black:   #050805;
+    --green:   #00FF41;
+    --green-d: #00aa2b;
+    --green-f: rgba(0,255,65,0.06);
+    --green-f2:rgba(0,255,65,0.12);
+    --amber:   #FFB300;
+    --white:   #e8f0e8;
+    --dim:     #4a6a4a;
+    --border:  rgba(0,255,65,0.15);
+    --border2: rgba(0,255,65,0.3);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px);
+    pointer-events: none;
+    z-index: 1000;
+  }
+
+  .display { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.04em; line-height: 0.92; }
+  .mono { font-family: 'Share Tech Mono', monospace; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 16px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s;
+  }
+  nav.scrolled {
+    background: rgba(5,8,5,0.95);
+    border-bottom-color: var(--border);
+    backdrop-filter: blur(12px);
+  }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 4px; color: var(--green); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-family: 'Share Tech Mono', monospace; font-size: 11px;
+    letter-spacing: 2px; color: var(--dim); text-decoration: none;
+    text-transform: uppercase; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--green); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 120px 48px 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 60% 50%, black 30%, transparent 80%);
+  }
+  .hero-glow {
+    position: absolute; right: -100px; top: 50%; transform: translateY(-50%);
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(0,255,65,0.07) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-left { position: relative; z-index: 1; }
+  .hero-tag {
+    font-family: 'Share Tech Mono', monospace; font-size: 11px;
+    letter-spacing: 4px; color: var(--green); text-transform: uppercase;
+    margin-bottom: 24px; display: flex; align-items: center; gap: 10px;
+  }
+  .hero-tag::before { content: ''; display: block; width: 32px; height: 1px; background: var(--green); }
+  .hero-name { font-size: clamp(72px, 9vw, 130px); color: var(--white); margin-bottom: 8px; }
+  .hero-name span { color: var(--green); }
+  .hero-title { font-size: clamp(28px, 4vw, 52px); color: var(--dim); margin-bottom: 32px; }
+  .hero-desc {
+    font-size: 17px; line-height: 1.7; color: rgba(232,240,232,0.7);
+    max-width: 480px; margin-bottom: 48px;
+  }
+  .hero-desc strong { color: var(--white); font-weight: 600; }
+  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .btn-primary {
+    font-family: 'Share Tech Mono', monospace; font-size: 12px;
+    letter-spacing: 3px; text-transform: uppercase;
+    padding: 14px 32px; background: var(--green); color: #000;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: all 0.15s;
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  }
+  .btn-primary:hover { background: #00cc33; transform: translateY(-1px); }
+
+  .btn-outline {
+    font-family: 'Share Tech Mono', monospace; font-size: 12px;
+    letter-spacing: 3px; text-transform: uppercase;
+    padding: 13px 32px; background: transparent; color: var(--green);
+    text-decoration: none; border: 1px solid var(--border2); cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-outline:hover { background: var(--green-f2); border-color: var(--green); }
+
+  /* Signal box */
+  .hero-right { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; }
+  .signal-box {
+    width: 100%; max-width: 400px;
+    border: 1px solid var(--border2);
+    background: rgba(0,255,65,0.02);
+    padding: 24px; position: relative;
+  }
+  .signal-box::before {
+    content: 'LIVE SIGNAL';
+    position: absolute; top: -10px; left: 20px;
+    background: var(--black); padding: 0 8px;
+    font-family: 'Share Tech Mono', monospace; font-size: 10px;
+    letter-spacing: 3px; color: var(--green);
+  }
+  .signal-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+    font-family: 'Share Tech Mono', monospace; font-size: 12px;
+  }
+  .signal-item:last-child { border-bottom: none; }
+  .signal-label { color: var(--dim); letter-spacing: 1px; }
+  .signal-val { color: var(--green); text-shadow: 0 0 10px rgba(0,255,65,0.4); }
+  .signal-val.amber { color: var(--amber); text-shadow: 0 0 10px rgba(255,179,0,0.4); }
+  .pulse-dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--green); margin-right: 6px; animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.8)} }
+
+  /* SECTIONS */
+  section { padding: 100px 48px; position: relative; }
+  .section-label {
+    font-family: 'Share Tech Mono', monospace; font-size: 10px;
+    letter-spacing: 4px; color: var(--green); text-transform: uppercase;
+    margin-bottom: 12px; display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--green); }
+  .section-title { font-size: clamp(42px, 6vw, 80px); line-height: 0.95; margin-bottom: 48px; }
+
+  /* WHAT */
+  .what { background: #040604; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .what-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 48px; }
+  .what-card {
+    background: var(--black); padding: 40px 32px;
+    position: relative; overflow: hidden; transition: background 0.2s;
+  }
+  .what-card:hover { background: var(--green-f); }
+  .what-card::before {
+    content: attr(data-num); position: absolute; top: 20px; right: 24px;
+    font-family: 'Bebas Neue', sans-serif; font-size: 72px;
+    color: rgba(0,255,65,0.04); line-height: 1;
+  }
+  .what-icon { font-size: 28px; margin-bottom: 20px; }
+  .what-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px; color: var(--white); margin-bottom: 12px; }
+  .what-card p { font-size: 14px; line-height: 1.7; color: rgba(232,240,232,0.6); }
+
+  /* TOOLS */
+  .tools-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 48px; }
+  .tool-card {
+    border: 1px solid var(--border); padding: 32px; position: relative;
+    overflow: hidden; transition: all 0.2s; text-decoration: none;
+    display: block; background: rgba(0,255,65,0.02);
+  }
+  .tool-card:hover { border-color: var(--green); background: var(--green-f2); transform: translateY(-2px); }
+  .tool-card::after {
+    content: '↗'; position: absolute; top: 20px; right: 20px;
+    font-size: 20px; color: var(--dim); transition: color 0.2s;
+  }
+  .tool-card:hover::after { color: var(--green); }
+  .tool-tag { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 3px; color: var(--green-d); text-transform: uppercase; margin-bottom: 12px; }
+  .tool-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 2px; color: var(--white); margin-bottom: 10px; }
+  .tool-card p { font-size: 14px; line-height: 1.6; color: rgba(232,240,232,0.55); }
+
+  /* COURSE */
+  .course { background: #040604; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .course-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .course-badge {
+    display: inline-block; font-family: 'Share Tech Mono', monospace;
+    font-size: 10px; letter-spacing: 3px; color: var(--amber);
+    border: 1px solid rgba(255,179,0,0.4); padding: 4px 12px;
+    margin-bottom: 20px; text-transform: uppercase;
+    animation: badge-pulse 3s infinite;
+  }
+  @keyframes badge-pulse { 0%,100%{border-color:rgba(255,179,0,0.4)} 50%{border-color:rgba(255,179,0,0.8)} }
+  .course-title { font-size: clamp(48px, 6vw, 88px); color: var(--white); line-height: 0.92; margin-bottom: 24px; }
+  .course-title span { color: var(--amber); }
+  .course-desc { font-size: 16px; line-height: 1.75; color: rgba(232,240,232,0.65); margin-bottom: 36px; }
+  .course-modules { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .course-modules li { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: rgba(232,240,232,0.7); line-height: 1.5; }
+  .course-modules li::before { content: '▸'; color: var(--amber); font-size: 12px; flex-shrink: 0; margin-top: 2px; }
+
+  /* CONTACT */
+  .contact-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 48px; }
+  .contact-card { background: var(--black); padding: 28px 24px; text-decoration: none; display: flex; flex-direction: column; gap: 8px; transition: background 0.2s; }
+  .contact-card:hover { background: var(--green-f); }
+  .contact-platform { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 3px; color: var(--dim); text-transform: uppercase; }
+  .contact-handle { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; color: var(--green); }
+
+  /* FOOTER */
+  footer {
+    padding: 32px 48px; border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'Share Tech Mono', monospace; font-size: 10px;
+    color: var(--dim); letter-spacing: 2px;
+  }
+
+  /* FADE */
+  .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; }
+    .hero-right { display: none; }
+    section { padding: 70px 24px; }
+    .what-grid { grid-template-columns: 1fr; }
+    .tools-grid { grid-template-columns: 1fr; }
+    .course-inner { grid-template-columns: 1fr; gap: 40px; }
+    .contact-grid { grid-template-columns: 1fr 1fr; }
+    footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-logo">A·S</div>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#course">Course</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-glow"></div>
+  <div class="hero-left">
+    <div class="hero-tag">Video Engineer — AV Integrator</div>
+    <h1 class="hero-name display">AKHIL<br><span>SEKHAR</span></h1>
+    <div class="hero-title display">Show Operator.<br>Tool Builder.</div>
+    <p class="hero-desc">
+      Deeply experienced in <strong>high-end, mission-critical live events</strong> —
+      the kind that demands everything works, every time, with zero margin for error.<br><br>
+      On the side, I build <strong>modules, tools and utilities</strong> that nobody else has made yet.
+    </p>
+    <div class="hero-cta">
+      <a href="#tools" class="btn-primary">View Tools</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="signal-box">
+      <div class="signal-item"><span class="signal-label">STATUS</span><span class="signal-val"><span class="pulse-dot"></span>AVAILABLE</span></div>
+      <div class="signal-item"><span class="signal-label">ROLE</span><span class="signal-val">VIDEO ENGINEER</span></div>
+      <div class="signal-item"><span class="signal-label">STACK</span><span class="signal-val">ANALOG + DIGITAL</span></div>
+      <div class="signal-item"><span class="signal-label">PROTOCOL</span><span class="signal-val">SDI · NDI · HDMI</span></div>
+      <div class="signal-item"><span class="signal-label">CONTROL</span><span class="signal-val">COMPANION · OSC</span></div>
+      <div class="signal-item"><span class="signal-label">COURSE</span><span class="signal-val amber">LAUNCHING SOON</span></div>
+      <div class="signal-item"><span class="signal-label">LOCATION</span><span class="signal-val">RIYADH · KSA</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="what" id="work">
+  <div class="section-label">What I Do</div>
+  <h2 class="section-title display fade-up">FIELD<br>EXPERTISE</h2>
+  <div class="what-grid">
+    <div class="what-card fade-up" data-num="01">
+      <div class="what-icon">📡</div>
+      <h3>Live Events</h3>
+      <p>Mission-critical video integration for large-scale live productions. Media servers, show control, signal routing — everything coordinated to run flawlessly from first rehearsal to final show.</p>
+    </div>
+    <div class="what-card fade-up" data-num="02">
+      <div class="what-icon">🎛️</div>
+      <h3>AV Integration</h3>
+      <p>System design and commissioning for show floors, broadcast environments, and permanent installs. Protocol bridging, EDID management, timing sync, and control system architecture.</p>
+    </div>
+    <div class="what-card fade-up" data-num="03">
+      <div class="what-icon">⚙️</div>
+      <h3>Tool Engineering</h3>
+      <p>When the right tool doesn't exist, I build it. Browser-based show control panels, EDID generators, SMPTE timecode utilities — purpose-built for real production problems.</p>
+    </div>
+  </div>
+</section>
+
+<section id="tools">
+  <div class="section-label">Built by me</div>
+  <h2 class="section-title display fade-up">AV<br>TOOLS</h2>
+  <div class="tools-grid">
+    <a href="/tools/edid-maker" class="tool-card fade-up">
+      <div class="tool-tag">Signal Management</div>
+      <h3>EDID Maker</h3>
+      <p>Generate valid 128-byte EDID binaries in the browser. All export formats — .bin, .reg, .inf, .hex. Useful for spoofing displays and solving handshake issues without hardware.</p>
+    </a>
+    <a href="/tools/grid-maker" class="tool-card fade-up">
+      <div class="tool-tag">Video Engineering</div>
+      <h3>Grid Maker</h3>
+      <p>Generate test grids at any resolution up to 16K. Center logo overlay, safe area guides, export PNG, JPG, SVG or .WEBM video with animations.</p>
+    </a>
+    <a href="/tools/smpte-timecode" class="tool-card fade-up">
+      <div class="tool-tag">Broadcast Sync</div>
+      <h3>SMPTE Timecode</h3>
+      <p>Full SMPTE timecode generator supporting all frame rates including drop-frame. LTC bit pattern display and WAV audio export — feed directly into any LTC reader or DAW.</p>
+    </a>
+    <a href="/tools/companion-timer" class="tool-card fade-up">
+      <div class="tool-tag">Show Control</div>
+      <h3>Companion Timer</h3>
+      <p>HTTP-controlled countdown and countup timer for Bitfocus Companion. Play, pause, stop, set time — all via GET requests from your button panel.</p>
+    </a>
+  </div>
+</section>
+
+<section class="course" id="course">
+  <div class="course-inner">
+    <div class="fade-up">
+      <div class="course-badge">⚡ Launching Soon</div>
+      <h2 class="course-title display">POWER<br>BEHIND<br>THE <span>SHOW</span></h2>
+      <p class="course-desc">
+        Electrical power for AV professionals. The course that covers what no one else teaches —
+        from generator sizing and distro to grounding, earthing, and power conditioning in live production environments.
+      </p>
+      <a href="#contact" class="btn-primary" style="display:inline-block;">Notify Me</a>
+    </div>
+    <div class="fade-up">
+      <ul class="course-modules">
+        <li>Why power quality matters in AV — and what bad power actually does to your gear</li>
+        <li>Generator types, sizing calculations, and fuel planning for events</li>
+        <li>Distribution boards, breakout boxes, and cable sizing</li>
+        <li>Grounding and earthing — what they are, why they differ, and when they fail</li>
+        <li>Noise, interference, and power conditioning strategies</li>
+        <li>Reading single-line diagrams and venue electrical drawings</li>
+        <li>3-phase power explained for production professionals</li>
+        <li>Safety protocols and working with electricians on-site</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-label">Get in Touch</div>
+  <h2 class="section-title display fade-up">LET'S<br>CONNECT</h2>
+  <div class="contact-grid">
+    <a href="mailto:akhil@akhilsekhar.com" class="contact-card fade-up">
+      <span class="contact-platform">Email</span>
+      <span class="contact-handle">AKHIL@AKHILSEKHAR.COM</span>
+    </a>
+    <a href="https://github.com/akhilzekhar" target="_blank" class="contact-card fade-up">
+      <span class="contact-platform">GitHub</span>
+      <span class="contact-handle">AKHILZEKHAR</span>
+    </a>
+    <a href="https://linkedin.com/in/akhilzekhar" target="_blank" class="contact-card fade-up">
+      <span class="contact-platform">LinkedIn</span>
+      <span class="contact-handle">AKHILZEKHAR</span>
+    </a>
+    <a href="https://akhilsekhar.com" class="contact-card fade-up">
+      <span class="contact-platform">Website</span>
+      <span class="contact-handle">AKHILSEKHAR.COM</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 AKHIL SEKHAR</span>
+  <span>VIDEO ENGINEER — AV INTEGRATOR — RIYADH</span>
+  <span>AKHILSEKHAR.COM</span>
+</footer>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Fade up observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 100);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
