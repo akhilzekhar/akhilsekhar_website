@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Power Behind the Show — AV Electrical Power Course by Akhil Sekhar</title>
+<meta name="description" content="The only course built specifically for AV professionals who need to understand electrical power. 16 modules. Online. Self-paced.">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════
+   DESIGN SYSTEM
+══════════════════════════════════════ */
+:root {
+  --bg:      #040604;
+  --bg2:     #060a06;
+  --panel:   #090d09;
+  --panel2:  #0c100c;
+  --green:   #00FF41;
+  --green-d: #00aa2b;
+  --green-f: rgba(0,255,65,0.06);
+  --green-f2:rgba(0,255,65,0.1);
+  --amber:   #FFB300;
+  --red:     #FF3333;
+  --white:   #e8f0e8;
+  --dim:     #1a3a1a;
+  --label:   #3a6a3a;
+  --text-d:  #5a7a5a;
+  --border:  rgba(0,255,65,0.15);
+  --border2: rgba(0,255,65,0.25);
+  --gold:    #C9A84C;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'Barlow', sans-serif;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* Scanlines */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 4px);
+  pointer-events: none; z-index: 9999;
+}
+
+/* ── UTILITY ── */
+.mono { font-family: 'Share Tech Mono', monospace; }
+.green { color: var(--green); }
+.amber { color: var(--amber); }
+.label-tag {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--label);
+}
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 5vw, 60px);
+  letter-spacing: 0.05em;
+  line-height: 1;
+  color: var(--white);
+}
+.section-title .accent { color: var(--green); }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(4,6,4,0.92);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 40px; height: 56px;
+  transition: all 0.3s;
+}
+
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px; letter-spacing: 4px;
+  color: var(--green);
+  text-decoration: none;
+  text-shadow: 0 0 20px rgba(0,255,65,0.3);
+}
+
+.nav-links {
+  display: flex; gap: 28px; list-style: none;
+}
+
+.nav-links a {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--label); text-decoration: none; transition: color 0.15s;
+}
+.nav-links a:hover { color: var(--green); }
+
+.nav-cta {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px; letter-spacing: 3px;
+  background: var(--green); color: #000;
+  padding: 8px 20px; text-decoration: none;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+  transition: all 0.15s;
+}
+.nav-cta:hover { background: #33ff6e; }
+
+/* ══════════════════════════════════════
+   HERO
+══════════════════════════════════════ */
+#hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 120px 80px 80px;
+  position: relative; overflow: hidden;
+}
+
+/* Background grid */
+#hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,255,65,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,65,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Hero glow */
+#hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0,40,10,0.5) 0%, transparent 70%);
+}
+
+.hero-content { position: relative; z-index: 1; max-width: 900px; }
+
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 24px;
+}
+
+.hero-eyebrow::before {
+  content: ''; display: block;
+  width: 40px; height: 1px; background: var(--green-d);
+}
+
+.hero-badge {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px; letter-spacing: 4px;
+  color: var(--label); text-transform: uppercase;
+}
+
+.live-dot {
+  display: inline-block; width: 6px; height: 6px;
+  border-radius: 50%; background: var(--amber);
+  box-shadow: 0 0 8px var(--amber);
+  animation: pulse 2s infinite; margin-right: 6px;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+
+.hero-course-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(64px, 10vw, 130px);
+  line-height: 0.88;
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+}
+
+.hero-course-title .line1 { color: var(--white); display: block; }
+.hero-course-title .line2 { color: var(--white); display: block; }
+.hero-course-title .line3 { color: var(--green); display: block; text-shadow: 0 0 40px rgba(0,255,65,0.3); }
+
+.hero-subtitle {
+  font-size: clamp(16px, 2vw, 22px);
+  font-weight: 300;
+  color: rgba(232,240,232,0.55);
+  max-width: 620px;
+  line-height: 1.7;
+  margin: 24px 0 40px;
+}
+
+.hero-subtitle strong { color: rgba(232,240,232,0.9); font-weight: 600; }
+
+/* Stat row */
+.hero-stats {
+  display: flex; gap: 0; margin-bottom: 44px;
+}
+
+.hstat {
+  padding: 16px 32px;
+  border: 1px solid var(--border);
+  border-right: none;
+  background: var(--green-f);
+  text-align: center;
+}
+.hstat:first-child { border-left: 1px solid var(--border); }
+.hstat:last-child { border-right: 1px solid var(--border); }
+
+.hstat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 40px; line-height: 1;
+  color: var(--green); text-shadow: 0 0 20px rgba(0,255,65,0.3);
+}
+.hstat-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 8px; letter-spacing: 3px; color: var(--label);
+  margin-top: 4px;
+}
+
+/* CTA group */
+.hero-cta {
+  display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
+}
+
+.btn-primary {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
+  background: var(--green); color: #000;
+  padding: 16px 40px; text-decoration: none;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  transition: all 0.2s; border: none; cursor: pointer; display: inline-block;
+}
+.btn-primary:hover { background: #33ff6e; transform: translateY(-1px); }
+
+.btn-secondary {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
+  background: transparent; color: var(--green);
+  padding: 15px 40px; text-decoration: none;
+  border: 1px solid var(--border2); transition: all 0.2s; display: inline-block;
+}
+.btn-secondary:hover { background: var(--green-f2); border-color: var(--green); }
+
+.hero-note {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px; letter-spacing: 2px; color: var(--label);
+  margin-top: 16px;
+}
+
+/* Hero right — power diagram preview */
+.hero-visual {
+  position: absolute; right: 80px; top: 50%; transform: translateY(-50%);
+  width: 340px; opacity: 0.6; z-index: 1;
+}
+
+.hv-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 8px; letter-spacing: 3px; color: var(--label);
+  margin-bottom: 8px;
+}
+
+canvas#hero-canvas { display: block; width: 100%; }
+
+/* ══════════════════════════════════════
+   PROBLEM STATEMENT
+══════════════════════════════════════ */
+#problem {
+  padding: 100px 80px;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  position: relative; overflow: hidden;
+}
+
+#problem::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 50% at 0% 50%, rgba(0,255,65,0.03) 0%, transparent 60%);
+}
+
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  position: relative; z-index: 1;
+  max-width: 1100px; margin: 0 auto;
+}
+
+.problem-left .label-tag { margin-bottom: 20px; }
+
+.problem-statement {
+  font-size: clamp(22px, 3vw, 34px);
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--white);
+  margin-bottom: 28px;
+}
+
+.problem-statement em {
+  font-style: normal;
+  color: var(--green);
+  font-weight: 600;
+}
+
+.problem-body {
+  font-size: 16px;
+  color: rgba(232,240,232,0.5);
+  line-height: 1.8;
+}
+
+/* Pain points */
+.pain-list { display: flex; flex-direction: column; gap: 14px; }
+
+.pain-item {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 16px 20px;
+  border: 1px solid rgba(255,51,51,0.12);
+  background: rgba(255,51,51,0.04);
+  transition: all 0.2s;
+}
+.pain-item:hover { border-color: rgba(255,51,51,0.25); background: rgba(255,51,51,0.07); }
+
+.pain-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+.pain-text { font-size: 14px; color: rgba(232,240,232,0.65); line-height: 1.5; }
+.pain-text strong { color: var(--white); font-weight: 600; }
+
+/* ══════════════════════════════════════
+   WHAT YOU'LL LEARN
+══════════════════════════════════════ */
+#learn {
+  padding: 100px 80px;
+  position: relative; overflow: hidden;
+}
+
+#learn::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,255,65,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,65,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.learn-header {
+  text-align: center;
+  max-width: 700px; margin: 0 auto 60px;
+  position: relative; z-index: 1;
+}
+
+.learn-header .label-tag { margin-bottom: 16px; }
+
+.outcomes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  position: relative; z-index: 1;
+  max-width: 1100px; margin: 0 auto;
+}
+
+.outcome-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 28px 24px;
+  transition: all 0.2s;
+  position: relative; overflow: hidden;
+}
+
+.outcome-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--green-d), transparent);
+  opacity: 0; transition: opacity 0.2s;
+}
+
+.outcome-card:hover { background: var(--panel2); border-color: var(--border2); }
+.outcome-card:hover::before { opacity: 1; }
+
+.oc-icon { font-size: 28px; margin-bottom: 14px; }
+.oc-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px; letter-spacing: 2px;
+  color: var(--green); margin-bottom: 8px;
+}
+.oc-body { font-size: 13px; color: rgba(232,240,232,0.5); line-height: 1.6; }
+
+/* ══════════════════════════════════════
+   CURRICULUM
+══════════════════════════════════════ */
+#curriculum {
+  padding: 100px 80px;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.curriculum-layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 80px;
+  align-items: start;
+  max-width: 1100px; margin: 0 auto;
+}
+
+.curriculum-intro .label-tag { margin-bottom: 20px; }
+.curriculum-intro .section-title { margin-bottom: 20px; }
+.curriculum-intro p {
+  font-size: 15px; color: rgba(232,240,232,0.5); line-height: 1.8;
+  margin-bottom: 32px;
+}
+
+.curriculum-meta {
+  display: flex; flex-direction: column; gap: 10px;
+}
+
+.cm-item {
+  display: flex; align-items: center; gap: 12px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px; letter-spacing: 1px; color: var(--label);
+}
+.cm-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+
+/* Module list */
+.module-list { display: flex; flex-direction: column; gap: 2px; }
+
+.module-item {
+  display: flex; align-items: stretch; gap: 0;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  cursor: pointer; transition: all 0.2s;
+  position: relative; overflow: hidden;
+}
+
+.module-item:hover { background: var(--panel2); border-color: var(--border2); }
+
+.module-num {
+  width: 56px; flex-shrink: 0;
+  background: var(--green-f);
+  border-right: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px; color: var(--green-d);
+  letter-spacing: 1px;
+}
+
+.module-content { flex: 1; padding: 14px 18px; }
+
+.module-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 17px; letter-spacing: 2px;
+  color: var(--white); margin-bottom: 3px;
+  transition: color 0.15s;
+}
+.module-item:hover .module-title { color: var(--green); }
+
+.module-desc {
+  font-size: 12px; color: var(--text-d); line-height: 1.4;
+}
+
+.module-tag {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 8px; letter-spacing: 2px;
+  padding: 3px 8px; border: 1px solid;
+  align-self: center; margin-right: 14px; flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.tag-core { border-color: rgba(0,255,65,0.2); color: var(--green-d); }
+.tag-safety { border-color: rgba(255,51,51,0.2); color: var(--red); }
+.tag-practical { border-color: rgba(255,179,0,0.2); color: var(--amber); }
+
+/* ══════════════════════════════════════
+   WHO IT'S FOR
+══════════════════════════════════════ */
+#for-who {
+  padding: 100px 80px;
+  position: relative; overflow: hidden;
+}
+
+#for-who::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 60% at 100% 50%, rgba(0,255,65,0.03) 0%, transparent 60%);
+}
+
+.for-who-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  max-width: 1100px; margin: 0 auto;
+  position: relative; z-index: 1;
+}
+
+.for-who-cards {
+  display: flex; flex-direction: column; gap: 14px;
+}
+
+.who-card {
+  display: flex; align-items: flex-start; gap: 16px;
+  padding: 18px 22px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  transition: all 0.2s;
+}
+.who-card:hover { background: var(--panel2); border-color: var(--border2); }
+
+.who-icon { font-size: 24px; flex-shrink: 0; }
+.who-role {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px; letter-spacing: 2px;
+  color: var(--green); margin-bottom: 4px;
+}
+.who-desc { font-size: 13px; color: rgba(232,240,232,0.5); line-height: 1.5; }
+
+/* NOT for section */
+.not-for-list {
+  margin-top: 28px;
+  border: 1px solid rgba(255,51,51,0.1);
+  padding: 18px 22px;
+  background: rgba(255,51,51,0.03);
+}
+.nf-title {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px; letter-spacing: 3px; color: rgba(255,51,51,0.5);
+  margin-bottom: 10px;
+}
+.nf-item {
+  font-size: 13px; color: rgba(232,240,232,0.35);
+  padding: 4px 0; border-bottom: 1px solid rgba(255,51,51,0.06);
+  display: flex; align-items: center; gap: 8px;
+}
+.nf-item:last-child { border-bottom: none; }
+.nf-item::before { content: '✕'; color: rgba(255,51,51,0.4); font-size: 10px; }
+
+/* ══════════════════════════════════════
+   INSTRUCTOR
+══════════════════════════════════════ */
+#instructor {
+  padding: 100px 80px;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.instructor-layout {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 64px;
+  align-items: start;
+  max-width: 1100px; margin: 0 auto;
+}
+
+/* Avatar — signal monitor style */
+.instructor-avatar {
+  width: 200px; flex-shrink: 0;
+}
+
+.avatar-frame {
+  border: 2px solid var(--border);
+  background: var(--panel);
+  padding: 16px;
+  position: relative;
+}
+
+.avatar-frame::before {
+  content: 'INSTRUCTOR';
+  position: absolute; top: -8px; left: 14px;
+  background: var(--bg2); padding: 0 6px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 7px; letter-spacing: 3px; color: var(--label);
+}
+
+.avatar-placeholder {
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--green-f);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 60px; color: var(--green-d);
+  letter-spacing: 4px;
+  margin-bottom: 10px;
+}
+
+.avatar-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px; letter-spacing: 3px;
+  color: var(--green); text-align: center;
+}
+
+.avatar-title {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 8px; letter-spacing: 2px;
+  color: var(--label); text-align: center; margin-top: 3px;
+}
+
+/* Credentials */
+.instructor-bio .label-tag { margin-bottom: 16px; }
+.instructor-bio h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px; letter-spacing: 3px;
+  color: var(--white); margin-bottom: 20px;
+}
+
+.bio-text {
+  font-size: 15px; color: rgba(232,240,232,0.6);
+  line-height: 1.8; margin-bottom: 28px;
+}
+.bio-text strong { color: var(--white); }
+
+.cred-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.cred-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 13px; color: rgba(232,240,232,0.6); line-height: 1.4;
+}
+.cred-item::before { content: '▸'; color: var(--green); flex-shrink: 0; margin-top: 2px; }
+
+/* ══════════════════════════════════════
+   PRICING
+══════════════════════════════════════ */
+#pricing {
+  padding: 100px 80px;
+  position: relative; overflow: hidden;
+}
+
+#pricing::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(0,255,65,0.04) 0%, transparent 60%);
+}
+
+.pricing-header {
+  text-align: center; max-width: 600px;
+  margin: 0 auto 60px;
+  position: relative; z-index: 1;
+}
+.pricing-header .label-tag { margin-bottom: 16px; }
+
+.pricing-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2px;
+  max-width: 900px; margin: 0 auto;
+  position: relative; z-index: 1;
+}
+
+.price-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 36px 28px;
+  display: flex; flex-direction: column;
+  transition: all 0.2s;
+  position: relative; overflow: hidden;
+}
+
+.price-card.featured {
+  background: var(--panel2);
+  border-color: var(--border2);
+  box-shadow: 0 0 40px rgba(0,255,65,0.06);
+}
+
+.price-card.featured::before {
+  content: 'BEST VALUE';
+  position: absolute; top: 0; left: 0; right: 0;
+  background: var(--green); color: #000;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px; letter-spacing: 4px;
+  text-align: center; padding: 5px;
+}
+
+.price-card.featured { padding-top: 48px; }
+
+.pc-tier {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px; letter-spacing: 4px;
+  color: var(--label); margin-bottom: 12px;
+}
+
+.pc-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 56px; line-height: 1;
+  color: var(--green); text-shadow: 0 0 20px rgba(0,255,65,0.2);
+  margin-bottom: 4px;
+}
+
+.pc-price .currency {
+  font-size: 24px; vertical-align: top;
+  margin-top: 10px; display: inline-block;
+}
+
+.pc-price-note {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px; letter-spacing: 2px;
+  color: var(--label); margin-bottom: 24px;
+  text-decoration: line-through;
+}
+
+.pc-divider {
+  height: 1px; background: var(--border);
+  margin-bottom: 20px;
+}
+
+.pc-features {
+  flex: 1; display: flex; flex-direction: column; gap: 10px;
+  margin-bottom: 28px;
+}
+
+.pc-feat {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 13px; color: rgba(232,240,232,0.6); line-height: 1.4;
+}
+.pc-feat::before { content: '✓'; color: var(--green); flex-shrink: 0; font-family: 'Share Tech Mono',monospace; }
+.pc-feat.no { color: rgba(232,240,232,0.25); }
+.pc-feat.no::before { content: '–'; color: var(--dim); }
+
+.btn-card {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+  padding: 13px; text-align: center; text-decoration: none;
+  transition: all 0.2s; border: none; cursor: pointer; display: block;
+}
+.btn-card-primary { background: var(--green); color: #000; }
+.btn-card-primary:hover { background: #33ff6e; }
+.btn-card-outline { background: transparent; color: var(--green); border: 1px solid var(--border); }
+.btn-card-outline:hover { background: var(--green-f); border-color: var(--green); }
+
+.pricing-note {
+  text-align: center; margin-top: 28px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px; letter-spacing: 2px; color: var(--label);
+  position: relative; z-index: 1;
+}
+
+/* ══════════════════════════════════════
+   FAQ
+══════════════════════════════════════ */
+#faq {
+  padding: 100px 80px;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.faq-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 80px;
+  max-width: 1100px; margin: 0 auto;
+}
+
+.faq-sidebar .label-tag { margin-bottom: 20px; }
+.faq-sidebar p { font-size: 14px; color: rgba(232,240,232,0.45); line-height: 1.7; }
+
+.faq-list { display: flex; flex-direction: column; gap: 2px; }
+
+.faq-item {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  overflow: hidden;
+}
+
+.faq-q {
+  padding: 18px 22px;
+  display: flex; justify-content: space-between; align-items: center;
+  cursor: pointer; transition: background 0.15s;
+  font-size: 15px; font-weight: 600; color: var(--white);
+  gap: 20px;
+}
+.faq-q:hover { background: var(--panel2); }
+
+.faq-toggle {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 18px; color: var(--green); flex-shrink: 0;
+  transition: transform 0.2s;
+  width: 24px; text-align: center;
+}
+
+.faq-a {
+  max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+}
+.faq-a.open { max-height: 200px; }
+
+.faq-a-inner {
+  padding: 0 22px 18px;
+  font-size: 14px; color: rgba(232,240,232,0.55); line-height: 1.7;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+
+/* ══════════════════════════════════════
+   WAITLIST CTA
+══════════════════════════════════════ */
+#waitlist {
+  padding: 120px 80px;
+  position: relative; overflow: hidden;
+  text-align: center;
+}
+
+#waitlist::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0,40,10,0.6) 0%, transparent 70%),
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,65,0.02) 2px, rgba(0,255,65,0.02) 3px);
+}
+
+.waitlist-content { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+
+.waitlist-eyebrow {
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  margin-bottom: 24px;
+}
+.waitlist-eyebrow::before,.waitlist-eyebrow::after {
+  content: ''; display: block;
+  width: 60px; height: 1px; background: var(--green-d);
+}
+
+.waitlist-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 7vw, 84px);
+  line-height: .9; letter-spacing: .05em;
+  color: var(--white); margin-bottom: 16px;
+}
+.waitlist-title .g { color: var(--green); text-shadow: 0 0 30px rgba(0,255,65,0.3); }
+
+.waitlist-sub {
+  font-size: 17px; font-weight: 300;
+  color: rgba(232,240,232,0.5); line-height: 1.7;
+  margin-bottom: 48px;
+}
+.waitlist-sub strong { color: var(--white); }
+
+/* Email form */
+.waitlist-form {
+  display: flex; gap: 0; max-width: 520px; margin: 0 auto 20px;
+}
+
+.email-input {
+  flex: 1;
+  background: var(--panel);
+  border: 1px solid var(--border2);
+  border-right: none;
+  padding: 16px 20px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 13px; letter-spacing: 1px;
+  color: var(--white);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.email-input:focus { border-color: var(--green); }
+.email-input::placeholder { color: var(--label); }
+
+.waitlist-submit {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+  background: var(--green); color: #000;
+  padding: 16px 28px; border: none; cursor: pointer;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%);
+  transition: all 0.15s; white-space: nowrap;
+}
+.waitlist-submit:hover { background: #33ff6e; }
+
+.waitlist-perks {
+  display: flex; justify-content: center; gap: 32px; flex-wrap: wrap;
+  margin-top: 32px;
+}
+
+.wp {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px; letter-spacing: 2px;
+  color: var(--label); display: flex; align-items: center; gap: 6px;
+}
+.wp::before { content: '✓'; color: var(--green); }
+
+/* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 80px;
+  display: flex; justify-content: space-between; align-items: center;
+  background: var(--bg);
+}
+
+.footer-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px; letter-spacing: 4px;
+  color: var(--green); text-decoration: none;
+}
+
+.footer-links {
+  display: flex; gap: 24px; list-style: none;
+}
+
+.footer-links a {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px; letter-spacing: 2px;
+  color: var(--label); text-decoration: none; transition: color 0.15s;
+}
+.footer-links a:hover { color: var(--green); }
+
+.footer-copy {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px; letter-spacing: 2px; color: var(--label);
+}
+
+/* ══════════════════════════════════════
+   SCROLL ANIMATIONS
+══════════════════════════════════════ */
+.fade-up {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
+@media (max-width: 1100px) {
+  #hero { padding: 100px 40px 80px; }
+  .hero-visual { display: none; }
+  .problem-grid, .for-who-layout, .curriculum-layout,
+  .instructor-layout, .faq-layout { grid-template-columns: 1fr; gap: 40px; }
+  .pricing-cards { grid-template-columns: 1fr; max-width: 400px; }
+  .outcomes-grid { grid-template-columns: 1fr 1fr; }
+  #problem,#learn,#curriculum,#for-who,#instructor,#pricing,#faq,#waitlist,footer { padding: 60px 40px; }
+}
+
+@media (max-width: 700px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  #hero { padding: 100px 24px 60px; }
+  .hero-stats { flex-direction: column; }
+  .hstat { border: 1px solid var(--border); margin-bottom: 2px; }
+  .outcomes-grid { grid-template-columns: 1fr; }
+  .waitlist-form { flex-direction: column; }
+  .email-input { border-right: 1px solid var(--border2); }
+  .waitlist-submit { clip-path: none; }
+  #problem,#learn,#curriculum,#for-who,#instructor,#pricing,#faq,#waitlist,footer { padding: 60px 20px; }
+  footer { flex-direction: column; gap: 20px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="/" class="nav-logo">⚡ Power Behind the Show</a>
+  <ul class="nav-links">
+    <li><a href="#learn">Curriculum</a></li>
+    <li><a href="#for-who">Who It's For</a></li>
+    <li><a href="#instructor">Instructor</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="#waitlist" class="nav-cta">Join Waitlist</a>
+</nav>
+
+<!-- ══════════════════════════════════
+     HERO
+══════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-badge"><span class="live-dot"></span>Launching 2026 — Waitlist Open</div>
+    </div>
+
+    <h1 class="hero-course-title">
+      <span class="line1">POWER</span>
+      <span class="line2">BEHIND</span>
+      <span class="line3">THE SHOW ⚡</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      The <strong>only course built specifically for AV professionals</strong> who need to
+      truly understand electrical power — not just survive it.
+      16 modules. Online. Self-paced. Built by someone who has done it
+      on <strong>mission-critical live events</strong>.
+    </p>
+
+    <div class="hero-stats">
+      <div class="hstat">
+        <div class="hstat-num">16</div>
+        <div class="hstat-label">Modules</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num">1</div>
+        <div class="hstat-label">Industry Focus</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num">0</div>
+        <div class="hstat-label">Fluff</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num">∞</div>
+        <div class="hstat-label">Access</div>
+      </div>
+    </div>
+
+    <div class="hero-cta">
+      <a href="#waitlist" class="btn-primary">⚡ Join the Waitlist</a>
+      <a href="#curriculum" class="btn-secondary">See Curriculum</a>
+    </div>
+
+    <div class="hero-note">Early waitlist members get launch discount · No spam · Unsubscribe anytime</div>
+  </div>
+
+  <!-- Animated power chain visual -->
+  <div class="hero-visual">
+    <div class="hv-label">POWER CHAIN PREVIEW</div>
+    <canvas id="hero-canvas" height="280"></canvas>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     PROBLEM
+══════════════════════════════════ -->
+<section id="problem">
+  <div class="problem-grid">
+    <div class="problem-left fade-up">
+      <div class="label-tag">The Problem</div>
+      <p class="problem-statement">
+        AV gear is getting <em>more complex</em>. Power stays an afterthought.
+      </p>
+      <p class="problem-body">
+        Most AV techs learn electrical power through panic — on a job, at 2am, when
+        something trips and you don't know why. The industry doesn't teach this. Nobody does.
+        Until now.
+      </p>
+    </div>
+    <div class="pain-list fade-up">
+      <div class="pain-item">
+        <div class="pain-icon">⚡</div>
+        <div class="pain-text"><strong>Generator sizing guesswork</strong> — you're calculating load with a gut feeling and hoping it doesn't trip during the keynote.</div>
+      </div>
+      <div class="pain-item">
+        <div class="pain-icon">🔊</div>
+        <div class="pain-text"><strong>Mysterious noise and hum</strong> — you know it's a ground issue but you don't know how to fix it cleanly and permanently.</div>
+      </div>
+      <div class="pain-item">
+        <div class="pain-icon">📋</div>
+        <div class="pain-text"><strong>Electrical drawings are intimidating</strong> — you can't read what the venue gave you, so you just plug in and hope.</div>
+      </div>
+      <div class="pain-item">
+        <div class="pain-icon">🤝</div>
+        <div class="pain-text"><strong>Talking to electricians is hard</strong> — you don't speak the language, so you can't get what you need from the crew on site.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     WHAT YOU'LL LEARN
+══════════════════════════════════ -->
+<section id="learn">
+  <div class="learn-header fade-up">
+    <div class="label-tag">What You'll Learn</div>
+    <h2 class="section-title">Everything you need.<br><span class="accent">Nothing you don't.</span></h2>
+  </div>
+  <div class="outcomes-grid">
+    <div class="outcome-card fade-up">
+      <div class="oc-icon">🔌</div>
+      <div class="oc-title">Size a Generator</div>
+      <div class="oc-body">Calculate real load, apply the right derating factors, and spec a generator that won't let you down mid-show.</div>
+    </div>
+    <div class="outcome-card fade-up">
+      <div class="oc-icon">🗺️</div>
+      <div class="oc-title">Read Electrical Drawings</div>
+      <div class="oc-body">Single-line diagrams, panel schedules, distribution schematics — decode what the venue hands you.</div>
+    </div>
+    <div class="outcome-card fade-up">
+      <div class="oc-icon">🌍</div>
+      <div class="oc-title">Master 3-Phase Power</div>
+      <div class="oc-body">Understand why 3-phase exists, how to balance loads, and why your touring rig behaves differently in different countries.</div>
+    </div>
+    <div class="outcome-card fade-up">
+      <div class="oc-icon">🔇</div>
+      <div class="oc-title">Eliminate Noise</div>
+      <div class="oc-body">Ground loops, common mode noise, isolation transformers — understand the root cause and fix it properly, not with a workaround.</div>
+    </div>
+    <div class="outcome-card fade-up">
+      <div class="oc-icon">🛡️</div>
+      <div class="oc-title">Work Safely</div>
+      <div class="oc-body">RCD protection, arc flash awareness, safe isolation procedures, and how to assess a power setup before you touch it.</div>
+    </div>
+    <div class="outcome-card fade-up">
+      <div class="oc-icon">🤝</div>
+      <div class="oc-title">Talk to Electricians</div>
+      <div class="oc-body">Speak the language, ask the right questions, and collaborate professionally with electrical contractors on site.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     CURRICULUM
+══════════════════════════════════ -->
+<section id="curriculum">
+  <div class="curriculum-layout">
+    <div class="curriculum-intro fade-up">
+      <div class="label-tag">Curriculum</div>
+      <h2 class="section-title">16 modules.<br><span class="accent">Zero filler.</span></h2>
+      <p>Every module is built around real problems you'll face on real jobs. No theory for theory's sake — only what you actually need to work smarter and safer.</p>
+      <div class="curriculum-meta">
+        <div class="cm-item"><div class="cm-dot"></div>16 video modules</div>
+        <div class="cm-item"><div class="cm-dot"></div>Downloadable reference sheets</div>
+        <div class="cm-item"><div class="cm-dot"></div>Real-world case study</div>
+        <div class="cm-item"><div class="cm-dot"></div>Self-paced, lifetime access</div>
+        <div class="cm-item"><div class="cm-dot"></div>Available on any device</div>
+      </div>
+    </div>
+
+    <div class="module-list fade-up">
+      <!-- Modules 1-16 -->
+      <div class="module-item">
+        <div class="module-num">01</div>
+        <div class="module-content">
+          <div class="module-title">Why AV Pros Need Electrical Knowledge</div>
+          <div class="module-desc">The case for learning power — what you risk when you don't</div>
+        </div>
+        <div class="module-tag tag-core">CORE</div>
+      </div>
+      <div class="module-item">
+        <div class="module-num">02</div>
+        <div class="module-content">
+          <div class="module-title">Fundamentals: Voltage, Current, Power</div>
+          <div class="module-desc">Ohm's law applied to real AV scenarios, not textbook examples</div>
+        </div>
+        <div class="module-tag tag-core">CORE</div>
+      </div>
+      <div class="module-item">
+        <div class="module-num">03</div>
+        <div class="module-content">
+          <div class="module-title">AC Power, Phases & Power Factor</div>
+          <div class="module-desc">What power factor actually means and why it matters for your load calculations</div>
+        </div>
+        <div class="module-tag tag-core">CORE</div>
+      </div>
+      <div class="module-item">
+        <div class="module-num">04</div>
+        <div class="module-content">
+          <div class="module-title">Single-Phase vs Three-Phase Systems</div>
+          <div class="module-desc">How to work in both environments and avoid the common traps</div>
+        </div>
+        <div class="module-tag tag-core">CORE</div>
+      </div>
+      <div class="module-item">
+        <div class="module-num">05</div>
+        <div class="module-content">
+          <div class="module-title">Generator Sizing for Live Events</div>
+          <div class="module-desc">Calculate load, apply derating factors, spec it right — every time</div>
+        </div>
+        <div class="module-tag tag-practical">PRACTICAL</div>
+      </div>
+      <div class="module-item">
+        <div class="module-num">06</div>
+        <div class="module-content">
+          <div class="module-title">Distribution Systems & Distro Boxes</div>
+          <div class="module-desc">Stage boxes, Socapex, CEE connectors — what does what and why</div>
+        </div>
+        <div class="module-tag tag-practical">PRACTICAL</div>
+      </div>
+      <div class="module-item">
+        <div class="module-num">07</div>
+        <div class="module-content">
+          <div class="module-title">Grounding & Earthing Explained</div>
+          <div class="module-desc">The difference between safety earth and signal ground — and why they must stay separate</div>
+        </div>
+        <div class="module-tag tag-core">CORE</div>
+      </div>
+      <div class="module-item">
+        <div class="module-num">08</div>
+        <div class="module-content">
+          <div class="module-title">Noise, Hum & Interference</div>
+          <div class="module-desc">Ground loops, common mode noise, RF interference — root cause and fix</div>
+        </div>
+        <div class="module-tag tag-practical">PRACTICAL</div>
+      </div>
+      <div class="module-item">
+        <div class="module-num">09</div>
+        <div class="module-content">
+          <div class="module-title">Protection Devices: RCDs, MCBs, Fusing</div>
+          <div class="module-desc">How protection works, how to size it, and what happens when it doesn't trip when it should</div>
+        </div>
+        <div class="module-tag tag-safety">SAFETY</div>
+      </div>
+      <div class="module-item">
+        <div class="module-num">10</div>
+        <div class="module-content">
+          <div class="module-title">Reading Electrical Drawings</div>
+          <div class="module-desc">Single-line diagrams, panel schedules, and distribution schematics decoded</div>
+        </div>
+        <div class="module-tag tag-practical">PRACTICAL</div>
+      </div>
+      <div class="module-item">
+        <div class="module-num">11</div>
+        <div class="module-content">
+          <div class="module-title">Isolation Transformers & UPS Systems</div>
+          <div class="module-desc">When and why to use them, and how to spec them for AV loads</div>
+        </div>
+        <div class="module-tag tag-practical">PRACTICAL</div>
+      </div>
+      <div class="module-item">
+        <div class="module-num">12</div>
+        <div class="module-content">
+          <div class="module-title">Electrical Safety for AV Professionals</div>
+          <div class="module-desc">Safe isolation, arc flash awareness, and assessing a power install before you touch it</div>
+        </div>
+        <div class="module-tag tag-safety">SAFETY</div>
+      </div>
+      <div class="module-item">
+        <div class="module-num">13</div>
+        <div class="module-content">
+          <div class="module-title">Power Planning for a Live Event</div>
+          <div class="module-desc">How to build a power plan from scratch — venue survey to load schedule</div>
+        </div>
+        <div class="module-tag tag-practical">PRACTICAL</div>
+      </div>
+      <div class="module-item">
+        <div class="module-num">14</div>
+        <div class="module-content">
+          <div class="module-title">Working with Electricians on Site</div>
+          <div class="module-desc">Speak the language, get what you need, and collaborate without friction</div>
+        </div>
+        <div class="module-tag tag-practical">PRACTICAL</div>
+      </div>
+      <div class="module-item">
+        <div class="module-num">15</div>
+        <div class="module-content">
+          <div class="module-title">International Power — Touring Globally</div>
+          <div class="module-desc">Voltage, frequency, connectors, and regulations across markets</div>
+        </div>
+        <div class="module-tag tag-practical">PRACTICAL</div>
+      </div>
+      <div class="module-item" style="border-color:rgba(0,255,65,0.3);background:rgba(0,255,65,0.04);">
+        <div class="module-num" style="background:rgba(0,255,65,0.1);color:var(--green);">16</div>
+        <div class="module-content">
+          <div class="module-title" style="color:var(--green);">Full Event Power Case Study</div>
+          <div class="module-desc">End-to-end real-world power plan — from advance to show day</div>
+        </div>
+        <div class="module-tag tag-practical">CAPSTONE</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     WHO IT'S FOR
+══════════════════════════════════ -->
+<section id="for-who">
+  <div class="for-who-layout">
+    <div class="fade-up">
+      <div class="label-tag">Who It's For</div>
+      <h2 class="section-title">Built for the<br><span class="accent">people on the floor.</span></h2>
+      <p style="font-size:15px;color:rgba(232,240,232,0.5);line-height:1.8;margin-top:20px;">
+        This is not a course for electricians. This is a course for AV professionals who need
+        to understand the electrical world they work in every day — without becoming engineers.
+      </p>
+      <div class="not-for-list" style="margin-top:24px;">
+        <div class="nf-title">NOT FOR</div>
+        <div class="nf-item">Qualified electricians (you already know this)</div>
+        <div class="nf-item">People who want a certificate to hang on a wall</div>
+        <div class="nf-item">Anyone who doesn't work with live event production</div>
+      </div>
+    </div>
+
+    <div class="for-who-cards fade-up">
+      <div class="who-card">
+        <div class="who-icon">🎬</div>
+        <div>
+          <div class="who-role">Show Operators & Techs</div>
+          <div class="who-desc">You're on-site, you're responsible, and you need to understand what you're plugging into before you plug into it.</div>
+        </div>
+      </div>
+      <div class="who-card">
+        <div class="who-icon">🖥️</div>
+        <div>
+          <div class="who-role">Video Engineers</div>
+          <div class="who-desc">Media servers, LED processors, signal distribution — your gear draws serious power and you need to plan for it properly.</div>
+        </div>
+      </div>
+      <div class="who-card">
+        <div class="who-icon">🔊</div>
+        <div>
+          <div class="who-role">Audio Engineers</div>
+          <div class="who-desc">Hum, noise, ground loops — most audio problems are power problems. Fix them at source instead of band-aiding the symptom.</div>
+        </div>
+      </div>
+      <div class="who-card">
+        <div class="who-icon">💡</div>
+        <div>
+          <div class="who-role">Lighting Technicians</div>
+          <div class="who-desc">Dimmer racks, LED fixtures, power distribution — big rigs, big loads, and you need to spec them correctly.</div>
+        </div>
+      </div>
+      <div class="who-card">
+        <div class="who-icon">🏢</div>
+        <div>
+          <div class="who-role">AV Integrators</div>
+          <div class="who-desc">Designing permanent installs means designing for the electrical environment. This fills the gap your technical training left.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     INSTRUCTOR
+══════════════════════════════════ -->
+<section id="instructor">
+  <div class="instructor-layout">
+    <div class="instructor-avatar fade-up">
+      <div class="avatar-frame">
+        <div class="avatar-placeholder">AS</div>
+        <div class="avatar-name">AKHIL SEKHAR</div>
+        <div class="avatar-title">VIDEO ENGINEER · AV INTEGRATOR</div>
+      </div>
+    </div>
+
+    <div class="instructor-bio fade-up">
+      <div class="label-tag">Your Instructor</div>
+      <h3>Akhil Sekhar</h3>
+      <p class="bio-text">
+        <strong>Video engineer and AV integrator</strong> based in Riyadh, KSA, with deep experience
+        on high-end, mission-critical live events where there is zero margin for error.
+        From arena-scale shows to corporate productions, the power has to work — and work
+        every time. This course is built from that field experience, not from a textbook.
+      </p>
+      <p class="bio-text">
+        Alongside working live events, Akhil builds <strong>tools and utilities for AV professionals</strong>
+        — including an EDID maker, broadcast grid maker, SMPTE timecode generator, and show control
+        timer — all available free at akhilsekhar.com.
+      </p>
+      <div class="cred-grid">
+        <div class="cred-item">High-end live event production</div>
+        <div class="cred-item">Media server programming & operation</div>
+        <div class="cred-item">Signal routing & video engineering</div>
+        <div class="cred-item">Show control systems (Companion, OSC)</div>
+        <div class="cred-item">AV systems integration</div>
+        <div class="cred-item">Tool builder & developer</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     PRICING
+══════════════════════════════════ -->
+<section id="pricing">
+  <div class="pricing-header fade-up">
+    <div class="label-tag">Pricing</div>
+    <h2 class="section-title">One purchase.<br><span class="accent">Lifetime access.</span></h2>
+  </div>
+
+  <div class="pricing-cards">
+    <div class="price-card fade-up">
+      <div class="pc-tier">Early Bird</div>
+      <div class="pc-price"><span class="currency">$</span>79</div>
+      <div class="pc-price-note">$129 at launch</div>
+      <div class="pc-divider"></div>
+      <div class="pc-features">
+        <div class="pc-feat">All 16 modules</div>
+        <div class="pc-feat">Lifetime access</div>
+        <div class="pc-feat">Downloadable reference sheets</div>
+        <div class="pc-feat">Case study module</div>
+        <div class="pc-feat no">Community access</div>
+        <div class="pc-feat no">1:1 Q&A session</div>
+      </div>
+      <a href="#waitlist" class="btn-card btn-card-outline">Join Waitlist</a>
+    </div>
+
+    <div class="price-card featured fade-up">
+      <div class="pc-tier">Full Course</div>
+      <div class="pc-price"><span class="currency">$</span>129</div>
+      <div class="pc-price-note" style="visibility:hidden;">placeholder</div>
+      <div class="pc-divider"></div>
+      <div class="pc-features">
+        <div class="pc-feat">All 16 modules</div>
+        <div class="pc-feat">Lifetime access</div>
+        <div class="pc-feat">Downloadable reference sheets</div>
+        <div class="pc-feat">Case study module</div>
+        <div class="pc-feat">Community access</div>
+        <div class="pc-feat no">1:1 Q&A session</div>
+      </div>
+      <a href="#waitlist" class="btn-card btn-card-primary">Join Waitlist</a>
+    </div>
+
+    <div class="price-card fade-up">
+      <div class="pc-tier">Pro + Q&A</div>
+      <div class="pc-price"><span class="currency">$</span>199</div>
+      <div class="pc-price-note" style="visibility:hidden;">placeholder</div>
+      <div class="pc-divider"></div>
+      <div class="pc-features">
+        <div class="pc-feat">All 16 modules</div>
+        <div class="pc-feat">Lifetime access</div>
+        <div class="pc-feat">Downloadable reference sheets</div>
+        <div class="pc-feat">Case study module</div>
+        <div class="pc-feat">Community access</div>
+        <div class="pc-feat">1:1 Q&A session with Akhil</div>
+      </div>
+      <a href="#waitlist" class="btn-card btn-card-outline">Join Waitlist</a>
+    </div>
+  </div>
+
+  <div class="pricing-note fade-up">
+    Exact pricing TBD at launch · Waitlist members get first access + best price guaranteed
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     FAQ
+══════════════════════════════════ -->
+<section id="faq">
+  <div class="faq-layout">
+    <div class="faq-sidebar fade-up">
+      <div class="label-tag">FAQ</div>
+      <h2 class="section-title" style="font-size:36px;">Common<br><span class="accent">questions.</span></h2>
+      <p style="margin-top:16px;">If you have a question not answered here, reach out directly at akhil@akhilsekhar.com</p>
+    </div>
+
+    <div class="faq-list fade-up">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Do I need an electrical background to take this course?</span>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">No. This course starts from zero and builds up. If you know what a plug looks like and you've worked a live event, you have enough background. The goal is to take you from "I just plug things in" to "I understand exactly what's happening with this power system."</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>How long does it take to complete?</span>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">It's self-paced so it's completely up to you. The core content is designed to be consumable in a weekend if you focus, or spread across a few weeks if you prefer to go module-by-module between jobs.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Is this relevant outside of the UK/EU?</span>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Yes. The principles are universal — Ohm's law doesn't change by country. There's a dedicated module on international power systems covering voltage, frequency, connectors, and regional regulations including the Middle East, US, and Europe.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Will there be a certificate?</span>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Yes, a completion certificate will be included. But honestly — the real value is the knowledge you'll use on every job from the day you finish, not the certificate.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>When does the course launch?</span>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Launching in 2026. Join the waitlist to get first access and the guaranteed early bird price. Waitlist members will be notified before the public launch.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Is there a refund policy?</span>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Yes — 30-day money-back guarantee, no questions asked. If you go through the course and it doesn't deliver what it promises, you get a full refund.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     WAITLIST
+══════════════════════════════════ -->
+<section id="waitlist">
+  <div class="waitlist-content">
+    <div class="waitlist-eyebrow">
+      <span class="label-tag">Limited Early Bird Spots</span>
+    </div>
+
+    <h2 class="waitlist-title">
+      STOP GUESSING.<br>
+      <span class="g">START KNOWING.</span>
+    </h2>
+
+    <p class="waitlist-sub">
+      Join the waitlist. Get <strong>early access</strong>, the <strong>best price guaranteed</strong>,
+      and be the first to know when Power Behind the Show is live.
+    </p>
+
+    <form class="waitlist-form" onsubmit="handleSubmit(event)">
+      <input type="email" class="email-input" placeholder="your@email.com" required id="email-input">
+      <button type="submit" class="waitlist-submit">⚡ Join Waitlist</button>
+    </form>
+
+    <div id="form-message" style="font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--green);margin-top:12px;min-height:20px;"></div>
+
+    <div class="waitlist-perks">
+      <div class="wp">Early bird pricing locked</div>
+      <div class="wp">First access at launch</div>
+      <div class="wp">No spam, ever</div>
+      <div class="wp">Unsubscribe anytime</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     FOOTER
+══════════════════════════════════ -->
+<footer>
+  <a href="/" class="footer-logo">AKHIL SEKHAR</a>
+  <ul class="footer-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/tools">Tools</a></li>
+    <li><a href="#curriculum">Curriculum</a></li>
+    <li><a href="mailto:akhil@akhilsekhar.com">Contact</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 AKHIL SEKHAR · AKHILSEKHAR.COM</div>
+</footer>
+
+<!-- ══════════════════════════════════
+     JS
+══════════════════════════════════ -->
+<script>
+// Scroll animations
+const fadeEls = document.querySelectorAll('.fade-up');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+fadeEls.forEach(el => obs.observe(el));
+
+// FAQ toggle
+function toggleFaq(el) {
+  const ans = el.nextElementSibling;
+  const tog = el.querySelector('.faq-toggle');
+  const isOpen = ans.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+  document.querySelectorAll('.faq-toggle').forEach(t => t.style.transform = '');
+  if(!isOpen) { ans.classList.add('open'); tog.style.transform = 'rotate(45deg)'; }
+}
+
+// Form submit
+function handleSubmit(e) {
+  e.preventDefault();
+  const email = document.getElementById('email-input').value;
+  const msg = document.getElementById('form-message');
+  msg.textContent = '✓ You\'re on the list. We\'ll be in touch.';
+  document.getElementById('email-input').value = '';
+  // TODO: Replace with actual Apps Script endpoint
+  // fetch('YOUR_APPS_SCRIPT_URL', { method:'POST', body: JSON.stringify({email}) })
+}
+
+// Hero canvas — animated power chain
+(function() {
+  const cv = document.getElementById('hero-canvas');
+  if(!cv) return;
+  const ctx = cv.getContext('2d');
+  let t = 0;
+
+  const nodes = [
+    {label:'MAINS',x:.05,col:'#FFB300'},
+    {label:'GEN',x:.2,col:'#FFB300'},
+    {label:'DISTRO',x:.38,col:'#00EEFF'},
+    {label:'STAGE',x:.56,col:'#00FF41'},
+    {label:'SERVERS',x:.74,col:'#00FF41'},
+    {label:'OUT',x:.92,col:'#00FF9E'},
+  ];
+
+  function draw() {
+    cv.width = cv.offsetWidth;
+    cv.height = 280;
+    const W = cv.width, H = cv.height;
+    ctx.clearRect(0,0,W,H);
+
+    // Grid
+    ctx.strokeStyle = 'rgba(0,255,65,0.06)';
+    ctx.lineWidth = 1;
+    for(let x=0;x<W;x+=30){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+    for(let y=0;y<H;y+=30){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+
+    // Connections
+    for(let i=0;i<nodes.length-1;i++){
+      const a = nodes[i], b = nodes[i+1];
+      const x1=a.x*W, x2=b.x*W, y=H*.5;
+      // Animated energy pulse
+      const progress = ((t * 0.02 + i * 0.2) % 1);
+      const px = x1 + (x2-x1)*progress;
+
+      ctx.beginPath();
+      ctx.strokeStyle = 'rgba(0,255,65,0.2)';
+      ctx.lineWidth = 2;
+      ctx.moveTo(x1, y);
+      ctx.lineTo(x2, y);
+      ctx.stroke();
+
+      // Pulse dot
+      ctx.beginPath();
+      ctx.arc(px, y, 3, 0, Math.PI*2);
+      ctx.fillStyle = '#00FF41';
+      ctx.shadowColor = '#00FF41';
+      ctx.shadowBlur = 8;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+
+    // Nodes
+    nodes.forEach(n => {
+      const x = n.x*W, y = H*.5;
+      ctx.beginPath();
+      ctx.arc(x, y, 8, 0, Math.PI*2);
+      ctx.fillStyle = '#040604';
+      ctx.fill();
+      ctx.strokeStyle = n.col;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      ctx.fillStyle = n.col;
+      ctx.font = `${Math.max(8,W/50)}px 'Share Tech Mono', monospace`;
+      ctx.textAlign = 'center';
+      ctx.fillText(n.label, x, y + 22);
+    });
+
+    // Waveform below
+    ctx.beginPath();
+    ctx.strokeStyle = 'rgba(0,255,65,0.25)';
+    ctx.lineWidth = 1;
+    for(let x=0;x<W;x++){
+      const y2 = H*.78 + Math.sin(x*.05+t*.04)*12 + Math.sin(x*.09+t*.06)*6;
+      x===0 ? ctx.moveTo(x,y2) : ctx.lineTo(x,y2);
+    }
+    ctx.stroke();
+
+    t++;
+    requestAnimationFrame(draw);
+  }
+  draw();
+  window.addEventListener('resize', draw);
+})();
+</script>
+</body>
+</html>
