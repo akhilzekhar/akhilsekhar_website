@@ -1,1 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Courses — Akhil Sekhar</title>
+<meta name="description" content="Online courses by Akhil Sekhar. Electrical power, networking, and computer science — built for people who want to actually understand how things work.">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#040604;--bg2:#060a06;--panel:#090d09;--panel2:#0c100c;
+  --green:#00FF41;--green-d:#00aa2b;--green-f:rgba(0,255,65,0.06);--green-f2:rgba(0,255,65,0.1);
+  --amber:#FFB300;--red:#FF3333;--white:#e8f0e8;
+  --dim:#1a3a1a;--label:#3a6a3a;--text-d:#5a7a5a;
+  --border:rgba(0,255,65,0.15);--border2:rgba(0,255,65,0.25);
+  /* Course accent colours */
+  --c1:#00FF41;   /* Power — green */
+  --c2:#00EEFF;   /* Networking — cyan */
+  --c3:#CC44FF;   /* CS — violet */
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden;line-height:1.6;}
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.06) 2px,rgba(0,0,0,0.06) 4px);pointer-events:none;z-index:9999;}
 
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(4,6,4,0.94);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);display:flex;justify-content:space-between;align-items:center;padding:0 60px;height:56px;}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:4px;color:var(--green);text-decoration:none;}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--label);text-decoration:none;transition:color .15s;}
+.nav-links a:hover{color:var(--green);}
+.nav-back{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--label);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s;}
+.nav-back:hover{color:var(--green);}
+
+/* ── HERO ── */
+.hero{min-height:70vh;display:flex;flex-direction:column;justify-content:center;padding:120px 80px 80px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(0,255,65,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,65,0.04) 1px,transparent 1px);background-size:60px 60px;}
+.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(0,30,8,0.5) 0%,transparent 70%);}
+.hero-inner{position:relative;z-index:1;max-width:800px;}
+.hero-eyebrow{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:5px;color:var(--label);margin-bottom:20px;display:flex;align-items:center;gap:12px;}
+.hero-eyebrow::before{content:'';display:block;width:32px;height:1px;background:var(--green-d);}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(56px,9vw,110px);line-height:.88;letter-spacing:.05em;margin-bottom:20px;}
+.hero-title .line1{color:var(--white);display:block;}
+.hero-title .line2{color:var(--green);display:block;text-shadow:0 0 40px rgba(0,255,65,0.25);}
+.hero-desc{font-size:clamp(15px,2vw,19px);font-weight:300;color:rgba(232,240,232,0.5);max-width:580px;line-height:1.75;margin-bottom:36px;}
+.hero-desc strong{color:rgba(232,240,232,0.9);}
+.hero-stats{display:flex;gap:0;}
+.hstat{padding:14px 28px;border:1px solid var(--border);border-right:none;background:var(--green-f);}
+.hstat:last-child{border-right:1px solid var(--border);}
+.hstat-num{font-family:'Bebas Neue',sans-serif;font-size:32px;line-height:1;color:var(--green);}
+.hstat-label{font-family:'Share Tech Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--label);margin-top:3px;}
+
+/* ── COURSE CARDS ── */
+.courses-section{padding:80px 80px 120px;position:relative;}
+.courses-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 30%,rgba(0,255,65,0.03) 0%,transparent 60%);}
+.cs-label{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:5px;color:var(--label);margin-bottom:48px;text-align:center;}
+
+.course-cards{display:flex;flex-direction:column;gap:2px;max-width:1100px;margin:0 auto;position:relative;z-index:1;}
+
+/* Individual card */
+.course-card{display:grid;grid-template-columns:6px 1fr auto;background:var(--panel);border:1px solid var(--border);transition:all .25s;position:relative;overflow:hidden;}
+.course-card:hover{background:var(--panel2);border-color:var(--border2);}
+.course-card:hover .cc-arrow{transform:translateX(4px);}
+
+/* Left accent bar */
+.cc-bar{width:6px;}
+.cc-bar.c1{background:var(--c1);}
+.cc-bar.c2{background:var(--c2);}
+.cc-bar.c3{background:var(--c3);}
+
+/* Card body */
+.cc-body{padding:36px 40px;display:grid;grid-template-columns:1fr 280px;gap:40px;align-items:center;}
+
+.cc-left{}
+.cc-meta{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap;}
+.cc-num{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--label);}
+.cc-status{font-family:'Share Tech Mono',monospace;font-size:8px;letter-spacing:2px;padding:3px 10px;border:1px solid;}
+
+.status-soon{border-color:rgba(255,179,0,0.35);color:var(--amber);}
+.status-new{border-color:rgba(204,68,255,0.35);color:var(--c3);}
+.status-open{border-color:rgba(0,238,255,0.35);color:var(--c2);}
+
+.cc-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(30px,3.5vw,48px);letter-spacing:.04em;line-height:1;margin-bottom:10px;}
+.cc-title.c1{color:var(--c1);}
+.cc-title.c2{color:var(--c2);}
+.cc-title.c3{color:var(--c3);}
+
+.cc-subtitle{font-size:13px;letter-spacing:3px;font-family:'Share Tech Mono',monospace;color:var(--label);margin-bottom:14px;}
+.cc-desc{font-size:15px;color:rgba(232,240,232,0.5);line-height:1.7;max-width:520px;}
+.cc-desc strong{color:rgba(232,240,232,0.8);}
+
+/* Card right panel */
+.cc-right{border-left:1px solid var(--border);padding:0 0 0 36px;display:flex;flex-direction:column;justify-content:center;gap:12px;}
+
+.cc-modules{font-family:'Share Tech Mono',monospace;}
+.ccm-num{font-family:'Bebas Neue',sans-serif;font-size:44px;line-height:1;}
+.ccm-num.c1{color:var(--c1);}.ccm-num.c2{color:var(--c2);}.ccm-num.c3{color:var(--c3);}
+.ccm-label{font-size:8px;letter-spacing:3px;color:var(--label);margin-top:2px;}
+
+.cc-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.cc-tag{font-family:'Share Tech Mono',monospace;font-size:8px;letter-spacing:2px;padding:4px 10px;border:1px solid var(--border);color:var(--text-d);}
+
+.cc-cta{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:3px;text-decoration:none;text-transform:uppercase;padding:12px 24px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all .2s;width:fit-content;}
+.cc-cta.c1{background:var(--c1);color:#000;clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px));}
+.cc-cta.c1:hover{background:#33ff6e;}
+.cc-cta.c2{background:var(--c2);color:#000;clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px));}
+.cc-cta.c2:hover{background:#33f3ff;}
+.cc-cta.c3{background:var(--c3);color:#fff;clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px));}
+.cc-cta.c3:hover{background:#dd66ff;}
+
+.cc-arrow{transition:transform .2s;font-size:14px;}
+
+/* Card glow on hover */
+.course-card.c1-card:hover{box-shadow:inset 0 0 40px rgba(0,255,65,0.04);}
+.course-card.c2-card:hover{box-shadow:inset 0 0 40px rgba(0,238,255,0.04);}
+.course-card.c3-card:hover{box-shadow:inset 0 0 40px rgba(204,68,255,0.04);}
+
+/* ── BUNDLE CTA ── */
+.bundle-section{padding:0 80px 100px;position:relative;z-index:1;}
+.bundle-card{max-width:1100px;margin:0 auto;background:var(--panel2);border:1px solid var(--border2);padding:48px;display:flex;justify-content:space-between;align-items:center;gap:40px;position:relative;overflow:hidden;}
+.bundle-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 100% at 50% 50%,rgba(0,255,65,0.04) 0%,transparent 70%);}
+.bundle-left{position:relative;z-index:1;}
+.bundle-tag{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--amber);margin-bottom:12px;}
+.bundle-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,4vw,52px);letter-spacing:.04em;color:var(--white);line-height:1;margin-bottom:8px;}
+.bundle-desc{font-size:14px;color:rgba(232,240,232,0.45);line-height:1.7;}
+.bundle-right{position:relative;z-index:1;text-align:right;flex-shrink:0;}
+.bundle-price{font-family:'Bebas Neue',sans-serif;font-size:56px;line-height:1;color:var(--amber);text-shadow:0 0 20px rgba(255,179,0,0.25);}
+.bundle-note{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--label);margin-bottom:16px;}
+.btn-bundle{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;background:var(--amber);color:#000;padding:13px 28px;text-decoration:none;display:inline-block;transition:all .2s;clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px));}
+.btn-bundle:hover{background:#ffc933;}
+
+/* ── INSTRUCTOR STRIP ── */
+.instructor-strip{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg2);padding:48px 80px;display:flex;align-items:center;gap:48px;}
+.is-avatar{width:64px;height:64px;background:var(--green-f);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--green-d);flex-shrink:0;}
+.is-name{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;color:var(--white);}
+.is-role{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--label);margin-top:3px;}
+.is-bio{font-size:14px;color:rgba(232,240,232,0.45);line-height:1.7;flex:1;}
+.is-bio strong{color:rgba(232,240,232,0.7);}
+.is-link{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--green);text-decoration:none;border-bottom:1px solid rgba(0,255,65,0.3);padding-bottom:2px;white-space:nowrap;transition:all .15s;}
+.is-link:hover{border-color:var(--green);}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--border);padding:28px 80px;display:flex;justify-content:space-between;align-items:center;background:var(--bg);}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:4px;color:var(--green);text-decoration:none;}
+.footer-links{display:flex;gap:24px;list-style:none;}
+.footer-links a{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--label);text-decoration:none;transition:color .15s;}
+.footer-links a:hover{color:var(--green);}
+.footer-copy{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--label);}
+
+/* ── ANIMATIONS ── */
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1000px){
+  nav,footer,.hero,.courses-section,.bundle-section,.instructor-strip{padding-left:40px;padding-right:40px;}
+  .cc-body{grid-template-columns:1fr;}
+  .cc-right{border-left:none;border-top:1px solid var(--border);padding:20px 0 0;}
+  .bundle-card{flex-direction:column;text-align:center;}
+  .bundle-right{text-align:center;}
+}
+@media(max-width:600px){
+  nav,footer,.hero,.courses-section,.bundle-section,.instructor-strip{padding-left:20px;padding-right:20px;}
+  .nav-links{display:none;}
+  .hero-stats{flex-direction:column;}
+  .hstat{border:1px solid var(--border);margin-bottom:2px;}
+  .instructor-strip{flex-direction:column;gap:20px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">AKHIL SEKHAR</a>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/tools">Tools</a></li>
+    <li><a href="#courses">Courses</a></li>
+    <li><a href="mailto:akhil@akhilsekhar.com">Contact</a></li>
+  </ul>
+  <a href="/" class="nav-back">← Back to Site</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-inner fade-up">
+    <div class="hero-eyebrow">Online Courses · akhilsekhar.com</div>
+    <h1 class="hero-title">
+      <span class="line1">LEARN THE</span>
+      <span class="line2">FUNDAMENTALS.</span>
+    </h1>
+    <p class="hero-desc">
+      Three courses built for people who want to <strong>actually understand</strong>
+      how things work — power, networks, and code. No fluff.
+      No theory for theory's sake. Self-paced, online, built by someone
+      who uses this stuff on real jobs.
+    </p>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-num">3</div><div class="hstat-label">Courses</div></div>
+      <div class="hstat"><div class="hstat-num">48+</div><div class="hstat-label">Modules</div></div>
+      <div class="hstat"><div class="hstat-num">∞</div><div class="hstat-label">Access</div></div>
+      <div class="hstat"><div class="hstat-num">0</div><div class="hstat-label">Fluff</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COURSES ── -->
+<section class="courses-section" id="courses">
+  <div class="cs-label">Available & Coming Soon</div>
+
+  <div class="course-cards">
+
+    <!-- COURSE 1 — POWER -->
+    <div class="course-card c1-card fade-up">
+      <div class="cc-bar c1"></div>
+      <div class="cc-body">
+        <div class="cc-left">
+          <div class="cc-meta">
+            <span class="cc-num">COURSE 01</span>
+            <span class="cc-status status-soon">⚡ LAUNCHING SOON</span>
+          </div>
+          <div class="cc-title c1">POWER BEHIND<br>THE SHOW</div>
+          <div class="cc-subtitle">Electrical Power for AV Professionals</div>
+          <p class="cc-desc">
+            The <strong>only course built specifically for AV professionals</strong>
+            who need to understand electrical power. Generator sizing, distro,
+            grounding, noise, 3-phase, safety, and working with electricians —
+            taught by someone who does this on mission-critical live events.
+          </p>
+        </div>
+        <div class="cc-right">
+          <div class="cc-modules">
+            <div class="ccm-num c1">16</div>
+            <div class="ccm-label">MODULES</div>
+          </div>
+          <div class="cc-tags">
+            <span class="cc-tag">POWER</span>
+            <span class="cc-tag">SAFETY</span>
+            <span class="cc-tag">LIVE EVENTS</span>
+            <span class="cc-tag">AV PRO</span>
+          </div>
+          <a href="course_landing.html" class="cc-cta c1">View Course <span class="cc-arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- COURSE 2 — NETWORKING -->
+    <div class="course-card c2-card fade-up">
+      <div class="cc-bar c2"></div>
+      <div class="cc-body">
+        <div class="cc-left">
+          <div class="cc-meta">
+            <span class="cc-num">COURSE 02</span>
+            <span class="cc-status status-open">◈ WAITLIST OPEN</span>
+          </div>
+          <div class="cc-title c2">NETWORKING<br>FUNDAMENTALS</div>
+          <div class="cc-subtitle">IT Networking from the Ground Up</div>
+          <p class="cc-desc">
+            How networks actually work — from the physical layer to the application layer.
+            <strong>OSI model, TCP/IP, subnetting, routing, switching, DNS, firewalls, VLANs,
+            and wireless</strong>. No prior experience needed. Practical from day one.
+          </p>
+        </div>
+        <div class="cc-right">
+          <div class="cc-modules">
+            <div class="ccm-num c2">14</div>
+            <div class="ccm-label">MODULES</div>
+          </div>
+          <div class="cc-tags">
+            <span class="cc-tag">NETWORKING</span>
+            <span class="cc-tag">TCP/IP</span>
+            <span class="cc-tag">BEGINNER</span>
+            <span class="cc-tag">IT FUNDAMENTALS</span>
+          </div>
+          <a href="course_networking.html" class="cc-cta c2">View Course <span class="cc-arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- COURSE 3 — CS -->
+    <div class="course-card c3-card fade-up">
+      <div class="cc-bar c3"></div>
+      <div class="cc-body">
+        <div class="cc-left">
+          <div class="cc-meta">
+            <span class="cc-num">COURSE 03</span>
+            <span class="cc-status status-new">◆ COMING SOON</span>
+          </div>
+          <div class="cc-title c3">COMPUTER<br>SCIENCE</div>
+          <div class="cc-subtitle">Algorithms & Data Structures</div>
+          <p class="cc-desc">
+            The fundamentals that underpin all of software — <strong>arrays, linked lists,
+            stacks, queues, trees, graphs, sorting, searching, recursion, and Big O</strong>.
+            Taught clearly, visually, and without the academic fog.
+          </p>
+        </div>
+        <div class="cc-right">
+          <div class="cc-modules">
+            <div class="ccm-num c3">18</div>
+            <div class="ccm-label">MODULES</div>
+          </div>
+          <div class="cc-tags">
+            <span class="cc-tag">ALGORITHMS</span>
+            <span class="cc-tag">DATA STRUCTURES</span>
+            <span class="cc-tag">BIG O</span>
+            <span class="cc-tag">FOUNDATIONS</span>
+          </div>
+          <a href="course_cs.html" class="cc-cta c3">View Course <span class="cc-arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── BUNDLE ── -->
+<section class="bundle-section">
+  <div class="bundle-card fade-up">
+    <div class="bundle-left">
+      <div class="bundle-tag">⚡ BUNDLE DEAL — ALL THREE COURSES</div>
+      <div class="bundle-title">THE COMPLETE<br>FOUNDATIONS BUNDLE</div>
+      <p class="bundle-desc">Power · Networking · Computer Science — everything you need to understand the technology stack from electrons to algorithms. One purchase, lifetime access, best possible price.</p>
+    </div>
+    <div class="bundle-right">
+      <div class="bundle-note">EARLY BIRD · SAVE 40%</div>
+      <div class="bundle-price">$199</div>
+      <div class="bundle-note" style="margin-top:4px;margin-bottom:16px;">vs $357 individual</div>
+      <a href="#" class="btn-bundle">Join Bundle Waitlist →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── INSTRUCTOR ── -->
+<div class="instructor-strip fade-up">
+  <div class="is-avatar">AS</div>
+  <div>
+    <div class="is-name">AKHIL SEKHAR</div>
+    <div class="is-role">VIDEO ENGINEER · AV INTEGRATOR · INSTRUCTOR</div>
+  </div>
+  <p class="is-bio">
+    Based in Riyadh, KSA. Deeply experienced in <strong>high-end, mission-critical live events</strong> and
+    AV systems integration. These courses are built from real field experience — the knowledge
+    that actually matters, taught by someone who uses it every day.
+  </p>
+  <a href="/" class="is-link">akhilsekhar.com →</a>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <a href="/" class="footer-logo">AKHIL SEKHAR</a>
+  <ul class="footer-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/tools">Tools</a></li>
+    <li><a href="mailto:akhil@akhilsekhar.com">Contact</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 AKHIL SEKHAR · AKHILSEKHAR.COM</div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+},{threshold:0.08});
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
