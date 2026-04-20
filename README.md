@@ -1,1 +1,1 @@
-This is codebase and source files for the my website WWW.AKHILSEKHAR.COM
+This is codebase and source files for my website WWW.AKHILSEKHAR.COM
